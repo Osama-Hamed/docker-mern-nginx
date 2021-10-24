@@ -41,7 +41,6 @@ docker run --name server-con \
  -v "$(pwd):/app" \
  -v /app/node_modules \
  -v logs:/app/logs \
- -p 4000:4000 \
  --rm \
  server-img
 ```
@@ -58,11 +57,29 @@ docker build -t client-img ./
 
 ```bash
 docker run --name client-con \
--v "$(pwd)/src:/app/src" \
--p 3000:3000 \
+ --net mern-net \
+ -v "$(pwd)/src:/app/src" \
  --rm \
  -it \
  client-img
+```
+
+### Build nginx image
+
+```bash
+cd nginx
+
+docker build -t nginx-img ./
+```
+
+### Run nginx container
+
+```bash
+docker run --name nginx-con \
+ --net mern-net \
+ -p 5000:80 \
+ --rm \
+ nginx-img
 ```
 
 ## Run the app using docker compose
