@@ -4,4 +4,4 @@ COPY package.json .
 RUN yarn
 COPY . .
 EXPOSE 4000
-RUN yarn start
+CMD yarn start

@@ -1,0 +1,30 @@
+docker network create mern-net
+
+docker run --name mongodb-con \
+ --net mern-net \
+ --env-file ./env/mongo.env \
+ -v data:/data/db \
+ --rm \
+ -d \
+ mongo
+
+docker build -t server-img ./
+
+docker run --name server-con \
+ --net mern-net \
+ --env-file ../env/server.env \
+ -v "$(pwd):/app" \
+ -v /app/node_modules \
+ -v logs:/app/logs \
+ -p 4000:4000 \
+ --rm \
+ server-img
+
+docker build -t client-img ./
+
+docker run --name client-con \
+-v "$(pwd)/src:/app/src" \
+-p 3000:3000 \
+ --rm \
+ -it \
+ client-img
