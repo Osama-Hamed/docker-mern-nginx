@@ -64,3 +64,17 @@ docker run --name client-con \
  -it \
  client-img
 ```
+
+## Run the app using docker compose
+
+### Build the images and start the containers
+
+```bash
+docker-compose up --build
+```
+
+### Stop the containers
+
+```bash
+docker-compose down
+```
